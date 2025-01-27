@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/user')
+const {User} = require('../models')
 const { body, validationResult } = require('express-validator');
 
 router.get('/', async function (req, res, next) {
@@ -34,12 +34,13 @@ const validateUser = [
 ];
 
 router.post('/',validateUser , async function (req, res) {
-  const errors = validationResult(req);
+  const errors = validationResult(req.body);
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const newUser = await User.create({ firstName: req.firstName, lastName: req.lastName, email: req.email });
+  const {username, email, password} = req.body
+  const newUser = await User.create({ username, email, password });
 
   res.send('respond with a resource');
 })
