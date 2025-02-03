@@ -5,10 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const sequelize = require('./config/database')
 const customLogger = require('./logger')
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const blogRouter = require('./routes/blog')
 
 var app = express();
 
@@ -27,9 +29,14 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
+mongoose.connect('mongodb+srv://hamza:ebxpn4fU2AH3j7y@itmcluster.vlwrr.mongodb.net/itm')
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.log(err));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
+app.use('/blog', blogRouter)
 app.use(customLogger)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

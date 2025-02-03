@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 const {User} = require('../models')
 const { body, validationResult } = require('express-validator');
+const Item = require('../schemas/item');
+router.get('/heavy', async function (req, res) {
+  console.log('coming here');
+  let total  = 0;
+  for (let index = 0; index < 500000000000; index++) {
+    total++
+    
+  }
+  return res.send({ message: `heavy request` });
+})
 
 router.get('/', async function (req, res, next) {
   const { id } = req.query;
@@ -87,5 +97,16 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Error deleting user', error: error.message });
   }
 });
+
+router.post('/item',validateUser , async function (req, res) {
+  
+  const {name, description, price} = req.body
+  const newItem = new Item({ name, description, price });
+    await newItem.save();
+    res.status(201).json(newItem);
+
+    res.send('respond with a resource');
+})
+
 
 module.exports = router;
