@@ -29,7 +29,7 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-mongoose.connect('mongodb+srv://hamza:ebxpn4fU2AH3j7y@itmcluster.vlwrr.mongodb.net/itm')
+mongoose.connect('')
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
