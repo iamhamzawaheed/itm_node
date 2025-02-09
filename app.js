@@ -19,17 +19,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-try {
-   sequelize.authenticate()
-   .then(
-    console.log('Connection has been established successfully.')
-   )
+// try {
+//    sequelize.authenticate()
+//    .then(
+//     console.log('Connection has been established successfully.')
+//    )
   
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+// } catch (error) {
+//   console.error('Unable to connect to the database:', error);
+// }
 
-mongoose.connect('')
+mongoose.connect('mongodb+srv://hamza:ebxpn4fU2AH3j7y@itmcluster.vlwrr.mongodb.net/itm')
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
